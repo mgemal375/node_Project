@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mission Report</title>
+<link rel="stylesheet" href="/css/style.css">
+    
+</head>
+<body>
+    <%-include("./partials/header")%>
+  <div class="container">
+    <h1>Mission Report</h1>
+    
+    
+
+    <div class="products-section">
+      <h2>Mission Report</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Mission name</th>
+            <th>Purpose</th>
+            <th>Destination</th>
+            <th>Mission Ship</th>
+            <th>Crew Members</th>
+          </tr>
+        </thead>
+        <tbody>
+            <%report.forEach((m)=>{%>
+                <tr>
+                <td><%=m.missionName%></td>
+                <td><%=m.destination%></td>
+                <td><%=m.purpose%></td>
+                <td><%=m.shipName%></td>
+                <td><%m.crew.forEach((p)=>{%>
+                    <%=p.name%>
+               <% })%></td>
+                </tr>
+          <%  }) %>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <%-include("./partials/footer")%>
+
+  
+</body>
+</html>

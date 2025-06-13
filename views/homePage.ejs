@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Men's Clothing Emporium</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%-include("./partials/header")%>
+
+  <div class="container">
+    <h1>UESEC Home Page</h1>
+
+    <div class="products-section">
+      <h2>Personnel</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <%dataP.forEach((data)=>{%>
+            <td>Blazer</td>
+            <td>Blazer</td>
+            <td>$99.99</td>
+            <td class="actions">
+              <a href="/api/personnel/<%=data._id%>/edit">
+              <button class="btn-edit" style="background-color: blue;color: white;">Edit</button>
+            </a>
+              <form action="" >
+              <button formaction="/api/personnel/<%=data._id%>/delete" formmethod="post " style="background-color: red;">Delete</button>
+              </form>
+              
+            </td>
+            </tr>
+         <% })%>
+         
+        </tbody>
+      </table>
+    </div>
+
+    <div class="cart-section">
+      <h2>Ships</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Ship Name</th>
+            <th>REgistryID</th>
+            <th>Missions</th>
+            <th>Crew</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <%dataS.forEach((data)=>{%>
+            <td><%=data.name%></td>
+            <td><%=data.registryId%></td>
+            <td><%if(data.missions.length<1){%>
+              No mission asigned yet
+              <%} else %>
+              <%=data.mission%>
+            </td>
+            <td>
+              <%if(data.crew.length<1){%>
+                No mission asigned yet
+                <%} else {%>
+                <%dataP.forEach((P)=>{%>
+                 <% if(dataS.includes(P))%>
+                  <%=P.name%>,
+                <%})%>
+               <% }%>
+            </td>
+            <td class="actions">
+              <a href="/api/ships/<%=data._id%>/edit">
+              <button class="btn-edit" style="background-color: blue;color: white;">Edit</button>
+            </a>
+              <form action="" >
+              <button formaction="/api/ships/<%=data._id%>/delete" formmethod="post" style="background-color: red;">Delete</button>
+              </form>
+              
+            </td>
+            </tr>
+         <% })%>
+        </tbody>
+      </table>
+      <!-- <button class="btn-delete">Clear Cart</button>  use this button to refresh the page may be --> 
+    </div>
+    <div class="cart-section">
+        <h2>Missions</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Mission Name</th>
+              <th>Purpose</th>
+              <th>Destination</th>
+              <th>Ship Name</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+            <%dataM.forEach((data)=>{%>
+              <td><%=data.name%></td>
+              <td><%=data.purpose%></td>
+              <td><%=data.destination%>           
+              </td>
+              <td>
+                <%dataS.forEach((s)=>{%>
+                  <%if(s._id===data.ship)%>
+                    <%=s.name%>
+                <%})%>
+              </td>
+              <td class="actions">
+                <a href="/api/missions/<%=data._id%>/edit">
+                <button class="btn-cart" style="background-color: blue; color: white;">Edit</button>
+              </a>
+                <form action="" >
+                <button formaction="/api/missions/<%=data._id%>/delete"  formmethod="post" style="background-color: red;" >Delete</button>
+                </form>
+                
+              </td>
+              </tr>
+           <% })%>
+          </tbody>
+        </table>
+        </div>
+  </div>
+  
+    <!-- <button class="btn-delete">Clear Cart</button>  use this button to refresh the page may be --> 
+  <%-include("./partials/footer")%>
+</body>
+</html>

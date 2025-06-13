@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Schema Input Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f2f2f2;
+    }
+    form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+    input ,select{
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+    <%-include("./partials/header")%>
+
+  <h2 style="text-align:center;">Edit Personell</h2>
+
+  <form action="/api/personnel/<%=data.id%>/edit" method="POST">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" value="<%=data.name%>" required />
+
+    <label for="serviceID">Service ID (MongoDB ObjectId):</label>
+    <input type="text" id="serviceID" name="serviceID" value="<%=data.serviceID%>" required />
+
+    <label for="doe">Date of Entry:</label>
+    <input type="date" id="doe" name="doe" value="<%=data.doe%>" required />
+
+    <label for="specialities">Specialities (comma-separated):</label>
+    <input type="text" id="specialities" name="specialities" value="<%=data.specialities%>" placeholder="e.g. Cardiology, Pediatrics" required />
+
+    <label for="ships">Select ship:</label>
+    <select name="ships" id="ships">
+      <option value="">Select ship:</option>
+      <%ships.forEach((ship)=>{%>
+        <option value="<%=ship._id%>" <%= data.ship.equals(ship._id) ?"selected":''%> ><%=ship.name%></option>
+     <% })%>
+    </select>
+    <button type="submit">Update crew</button>
+</form>
+<%-include("./partials/footer")%>
+</body>
+</html>
