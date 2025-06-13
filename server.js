@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const db = require("./config/db.js");
 app.use(express.urlencoded({ extended: true }));
-const personnelRouter = require("./routes/personnelroutes.js")
+const personnelRouter = require("./routes/personnelRoutes.js")
 const shipsRouter = require("./routes/shipsRoutes.js");
 const missionsRouter = require("./routes/missionRoutes.js");
 const PORT = 3000;
