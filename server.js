@@ -33,6 +33,7 @@ app.get("/",async function(req,res){
         const dataM = await missionModel.find();
         // const dataM= await personnelModel.find();
         // console.log(datas)
+        
         res.render("homePage.ejs",{dataP,dataS,dataM});
         }catch(err){
             console.error(err);

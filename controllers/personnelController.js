@@ -24,6 +24,7 @@ exports.addNewPersonnel=async (req,res)=>{
         const newPersonnel = await  new personnelModel({
             name:req.body.name,
             serviceID:req.body.serviceID,
+            specialities:req.body.specialities,
             doe:req.body.doe,
             ship:shipId
         })
@@ -48,13 +49,18 @@ exports.deletPersonnel = async(req,res)=>{
 }
 exports.editPersonel = async(req,res)=>{
     try {
+        const shipId = new mongoose.Types.ObjectId(req.body.ship)
         const data = {
          name :req.body.name,
          doe: req.body.doe, 
          serviceId: req.body.serviceId ,
-         speciality:req.body.speciality
+         speciality:req.body.speciality,
+         ship:shipId
         }
         const updated = await personnelModel.findByIdAndUpdate(req.params.id,data);
+        const shipUpdate = await shipsModel.findByIdAndUpdate(shipId,{
+            $push:{crew:updated._id}
+        })
         res.redirect("/")
     } catch(error) {
         

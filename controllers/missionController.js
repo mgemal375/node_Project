@@ -24,6 +24,7 @@ exports.renderAddM = async (req,res)=>{
 exports.addNewMission=async (req,res)=>{
     try{
         const shipId = new mongoose.Types.ObjectId(req.body.ships)
+        console.log(req.body.ships);
         const newMission = await  new missionModel({
             name:req.body.name,
             purpose:req.body.purpose,
@@ -50,11 +51,12 @@ exports.deleteMission = async(req,res)=>{
 }
 exports.editMission = async(req,res)=>{
     try {
+        const shipUpdate = shipsModel.findById(req.body.ship)
         const data = {
          name :req.body.name,
          purpose: req.body.purpose, 
          destination: req.body.destination ,
-         ship:req.body.ship
+         ship:shipUpdate._id
         }
         const updated = await missionModel.findByIdAndUpdate(req.params.id,data);
         res.redirect("/")

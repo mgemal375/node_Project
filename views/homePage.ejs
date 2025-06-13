@@ -17,24 +17,40 @@
       <table>
         <thead>
           <tr>
-            <th>Category</th>
             <th>Name</th>
-            <th>Price</th>
-            <th>Actions</th>
+            <th>ServiceID</th>
+            <th>DOE</th>
+            <th>Specialities</th>
+            <th>Ship</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
           <tr>
           <%dataP.forEach((data)=>{%>
-            <td>Blazer</td>
-            <td>Blazer</td>
-            <td>$99.99</td>
+            <td><%=data.name%></td>
+            <td><%=data.serviceID%></td>
+            <td><%=data.doe%></td>
+            
+            <td><%data.specialities.forEach((speciality)=>{%>
+                <%=speciality%>,
+              <%})%>
+            </td>
+              <td><%if(data.ship){%>
+                <%dataS.forEach((sh)=>{%>
+                  <%if(sh._id===data.ship)%>
+                <%=sh.name%>,
+              </td>
+           <% })} else {%>
+          <td>No Ship Assigned </td>
+          <%}%>
+            
             <td class="actions">
               <a href="/api/personnel/<%=data._id%>/edit">
               <button class="btn-edit" style="background-color: blue;color: white;">Edit</button>
             </a>
               <form action="" >
-              <button formaction="/api/personnel/<%=data._id%>/delete" formmethod="post " style="background-color: red;">Delete</button>
+              <button formaction="/api/personnel/<%=data._id%>/delete" formmethod="post" style="background-color: red;">Delete</button>
               </form>
               
             </td>
@@ -69,7 +85,7 @@
             </td>
             <td>
               <%if(data.crew.length<1){%>
-                No mission asigned yet
+                No crew asigned yet
                 <%} else {%>
                 <%dataP.forEach((P)=>{%>
                  <% if(dataS.includes(P))%>
@@ -113,9 +129,10 @@
               </td>
               <td>
                 <%dataS.forEach((s)=>{%>
-                  <%if(s._id===data.ship)%>
+                  <%if(s._id.toString()===data.ship.toString()){%>
                     <%=s.name%>
-                <%})%>
+                <%}%>
+              <%})%>
               </td>
               <td class="actions">
                 <a href="/api/missions/<%=data._id%>/edit">

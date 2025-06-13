@@ -68,7 +68,7 @@
     <select name="ships" id="ships">
       <option value="">Select ship:</option>
       <%ships.forEach((ship)=>{%>
-        <option value="<%=ship._id%>" <%= data.ship.equals(ship._id) ?"selected":''%> ><%=ship.name%></option>
+        <option value="<%=ship._id%>"  ><%=ship.name%></option>
      <% })%>
     </select>
     <button type="submit">Update crew</button>
